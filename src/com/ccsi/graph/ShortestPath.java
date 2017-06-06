@@ -2,9 +2,7 @@ package com.ccsi.graph;
 
 import java.util.*;
 
-/**
- * Created by gxliu on 2017/6/3.
- */
+
 public class ShortestPath {
     public static void main(String[] args) {
         /*GraphNode root=MakeGraph.make();
@@ -61,6 +59,4 @@ public class ShortestPath {
         visited.remove(curr.name);
         //total-=weight;
     }
-
-    
 }
