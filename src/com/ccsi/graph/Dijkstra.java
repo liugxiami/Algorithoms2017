@@ -17,7 +17,7 @@ public class Dijkstra {
     }
     public static int dijkstraLength(int[][] graph){
         if(graph==null||graph.length==0||graph[0].length==0)return -1;
-        int len=graph[0].length;
+        int len=graph.length;
 
         int[] dis=graph[0].clone();  //辅助数组
 
