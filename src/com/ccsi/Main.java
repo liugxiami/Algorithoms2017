@@ -1,5 +1,6 @@
 package com.ccsi;
 
+import com.ccsi.graph.MinimumSpanningTreePrim;
 import com.ccsi.leetcode.*;
 import com.ccsi.utils.UnionFind2;
 import java.util.*;
@@ -41,9 +42,5 @@ public class Main {
         LC130SurroundedRegions sr=new LC130SurroundedRegions();
         sr.solve(grids);*/
 
-        int[] arrays={100,2,200,3,4,1,5,7};
-        LC128LongestConsecutiveSequence lcs=new LC128LongestConsecutiveSequence();
-        int num=lcs.longestSeq(arrays);
-        System.out.println(num);
     }
 }
