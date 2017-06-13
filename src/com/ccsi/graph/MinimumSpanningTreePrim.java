@@ -30,6 +30,8 @@ public class MinimumSpanningTreePrim {
 
     //建图，用一个Map来表示图，输入是Edge数组，转换成Map类型的图，key是节点，因为有from和to，
     // 其实from与to是没有方向的，所以在建图的时候要加两遍，一是以from作为key，一是以to作为key
+    //value是一个Edge类型的list，用来保存与key节点相连的所有的边，因为还有weight，只能用edge，
+    // 否则也可以直接用节点类型的list。
     public static Map<Integer,List<Edge>> createGraph(Edge[] edges) {
         Map<Integer,List<Edge>> graph=new HashMap<>();
         if(edges==null||edges.length==0)return graph;
@@ -55,19 +57,21 @@ public class MinimumSpanningTreePrim {
         List<Edge> result=new ArrayList<>();
         if(graph==null)return result;
 
-        Set<Integer> visited=new HashSet<>();
-        PriorityQueue<Edge> pq=new PriorityQueue<>();
+        Set<Integer> visited=new HashSet<>();  //存储已经访问过的节点
+        PriorityQueue<Edge> pq=new PriorityQueue<>(); //将所有与已访问过的节点相连的边放进pq。
 
-        visited.add(0);
+        visited.add(0);   //从第0个节点开始
         for (Edge e:graph.get(0)){
-            pq.offer(e);
+            pq.offer(e);  //与第0个节点相连的边入pq
         }
 
-        while(!pq.isEmpty()){
-            Edge curr=pq.poll();
+        while(!pq.isEmpty()){   //BFS相似的方法。
+            Edge curr=pq.poll();  //出queue
             int from=curr.from;
             int to=curr.to;
+            // 先判断是否都已经被访问过，访问过的话就直接跳出，看下一条边。
             if(visited.contains(from)&&visited.contains(to))continue;
+            //如果其中一个节点未被访问，则与这个节点相连的边入queue。
             if(visited.contains(from)){
                 for(Edge e:graph.get(to)){
                     pq.offer(e);
@@ -80,6 +84,7 @@ public class MinimumSpanningTreePrim {
                 }
                 visited.add(from);
             }
+            //将这条边记录到result里面去。
             result.add(curr);
         }
         return result;
