@@ -1,7 +1,5 @@
 package com.ccsi.graph;
 
-import com.sun.org.apache.regexp.internal.RE;
-
 import java.util.*;
 
 /**
@@ -38,6 +36,7 @@ public class MinimumSpanningTreePrimUF {
         }
     }
     private static Map<Integer,UFElement> map=new HashMap<>();
+    //unionFind 第一步，makeSet
     private static void makeSet(Edge[] edges){
         for (int i = 0; i < edges.length; i++) {
             int from=edges[i].from;
@@ -50,7 +49,7 @@ public class MinimumSpanningTreePrimUF {
             }
         }
     }
-
+    //unionF第二步 union
     private static void union(int key1,int key2){
         int parent1=find(key1);
         int parent2=find(key2);
@@ -69,7 +68,7 @@ public class MinimumSpanningTreePrimUF {
             }
         }
     }
-
+    //unionFind 第三步
     private static int find(int key){
         UFElement curr=map.get(key);
         UFElement temp=curr;
@@ -82,7 +81,7 @@ public class MinimumSpanningTreePrimUF {
             curr=map.get(curr.parent);
         }
     }
-
+    //建一个以节点为key，value是相连边的map(也就是图的另一种表示方法，该方法很实用)，方便取边。
     private static Map<Integer,List<Edge>> makeMap(Edge[] edges){
         Map<Integer,List<Edge>> result=new HashMap<>();
         for (int i = 0; i < edges.length; i++) {
@@ -102,7 +101,8 @@ public class MinimumSpanningTreePrimUF {
         }
         return result;
     }
-
+    //主函数，利用一个priorityqueue结合BFS方法，来找最短边，要注意的是不要
+    // 重复入queue，所以需要一个Set来记录访问过的节点。
     public static List<Edge> MSTPrimUF(Edge[] edges){
         List<Edge> result=new ArrayList<>();
         if(edges==null||edges.length==0)return result;
