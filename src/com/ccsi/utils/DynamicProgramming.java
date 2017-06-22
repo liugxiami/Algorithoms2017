@@ -30,4 +30,26 @@ public class DynamicProgramming {
         }
         return cache[len-1][total];
     }
+    //内存优化，节省内存
+    public static int dynamicProgramming1(int total, int[] weights,int[] valume){
+        int len=weights.length;
+
+        int[] pre=new int[total+1];
+        for (int i = 0; i < len; i++) {
+            if(i>=valume[0])pre[i]=weights[0];
+        }
+
+        for (int i = 1; i < len; i++) {
+            int[] curr=new int[total+1];
+            for (int j = 1; j <= total; j++) {
+                if(j-valume[i]>=0){
+                    curr[j]=Math.max(pre[j],pre[j-valume[i]]+weights[i]);
+                }else{
+                    curr[j]=pre[j];
+                }
+            }
+            pre=curr;
+        }
+        return pre[total];
+    }
 }

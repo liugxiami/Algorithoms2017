@@ -1,5 +1,7 @@
 package com.ccsi.utils;
 
+import java.util.*;
+
 /**
  * Created by gxliu on 2017/6/18.
  */
@@ -7,7 +9,10 @@ public class BackTracking {
     public static void main(String[] args) {
         int[] weights={2,3,4,5,6};
         int[] valume= {1,4,3,6,8};
-        System.out.println(backTracking(12,weights,valume));
+        //System.out.println(backTracking(12,weights,valume));
+        List<Integer> solution=backTracking1(12,weights,valume);
+        solution.forEach(x-> System.out.println(x));
+
     }
     private static int Max=0;
     public static int backTracking(int total,int[] weights,int[] valume){
@@ -25,6 +30,30 @@ public class BackTracking {
         //第二种情况，先判断背包里面的容积还够不够，够就放进去，这时容积减小，重量增加，index+。
         if(total-valume[index]>=0){
             helper(total-valume[index],weights,valume,curr+weights[index],index+1);
+        }
+    }
+    public static List<Integer> backTracking1(int total,int[] weights,int[] valume){
+        Stack<Integer> path=new Stack<>();
+        helper1(total,weights,valume,0,0,path);
+        return solution;
+    }
+    //记录解决方案
+    private static List<Integer> solution=new ArrayList<>();
+    private static void helper1(int total, int[] weights, int[] valume, int curr, int index, Stack<Integer> path){
+        if(total<=0||index>=weights.length){
+           if(Max<curr){
+               Max=curr;
+               solution.clear();
+               solution.addAll(path);
+           }
+           return;
+        }
+        helper1(total,weights,valume,curr,index+1,path);
+
+        if(total-valume[index]>=0){
+            path.push(weights[index]);
+            helper1(total-valume[index],weights,valume,curr+weights[index],index+1,path);
+            path.pop();
         }
     }
 }
