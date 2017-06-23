@@ -6,7 +6,7 @@ package com.ccsi.leetcode;
 public class LC198HouseRobber {
     public static void main(String[] args) {
         int[] nums={2,4,1,5,3,7};
-        System.out.println(rob1(nums));
+        System.out.println(rob3(nums));
     }
     public static int rob(int[] nums){
         if(nums==null||nums.length==0)return 0;
@@ -37,5 +37,32 @@ public class LC198HouseRobber {
             b=c;
         }
         return b;
+    }
+    //recursion
+    public static int rob2(int[] nums){
+        if(nums==null||nums.length==0)return 0;
+        return helper(nums,nums.length-1);
+    }
+    private static int helper(int[] nums,int index){
+        if(index==0)return nums[nums[0]];
+        if(index==1)return Math.max(nums[0],nums[1]);
+
+        return Math.max(helper(nums,index-1),nums[index]+helper(nums,index-2));
+    }
+    //recursion+cache
+    public static int rob3(int[] nums){
+        if(nums==null||nums.length==0)return 0;
+        int len=nums.length;
+        int[] cache=new int[len];
+        helper(nums,len-1,cache);
+        return cache[len-1];
+    }
+    private static int helper(int[] nums,int index,int[] cache){
+        if(index==0)cache[0]=nums[0];
+        if(index==1)cache[1]=Math.max(nums[0],nums[1]);
+
+        if(cache[index]!=0)return cache[index];
+        cache[index]=Math.max(helper(nums,index-1,cache),helper(nums,index-2,cache)+nums[index]);
+        return cache[index];
     }
 }
