@@ -1,7 +1,6 @@
 package com.ccsi.leetcode;
 
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * Created by gxliu on 2017/7/5.
