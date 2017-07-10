@@ -5,7 +5,8 @@ package com.ccsi.leetcode;
  */
 public class LC69SqrtX {
     public static void main(String[] args) {
-        System.out.println(sqrt1(15));
+        //System.out.println(sqrt1(15));
+        System.out.println(newTon(16,0.001));
     }
     public static int sqrt(int x){
         int result=1;
@@ -45,5 +46,18 @@ public class LC69SqrtX {
             return helper(x,mid+1,end);
         }
         else return helper(x,start,mid-1);
+    }
+    //求实数，利用牛顿方法。
+    public static double newTon(double x,double e){
+        if(x<0)throw new IllegalStateException("x should be greater than 0.");
+        double guess=1.0;
+        double curr=1.0;
+
+        while(true){
+            curr=guess;
+            guess=(guess+x/guess)/2;
+            if(Math.abs(curr-guess)<e)break;
+        }
+        return curr;
     }
 }
